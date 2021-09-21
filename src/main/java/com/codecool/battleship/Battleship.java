@@ -17,7 +17,7 @@ public class Battleship {
     }
 
     private static void mainMenu(){
-        display.menuDisplay();
+        display.displayMenu();
         int chosenMode = inputs.menuInput();
         switch (chosenMode){
             case 0:
