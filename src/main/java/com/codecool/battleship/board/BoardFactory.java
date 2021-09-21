@@ -5,10 +5,10 @@ import com.codecool.battleship.input.Input;
 public class BoardFactory {
 
     //theoretically works with the smallest ships
-    public void placement(Player player) {
+    public void placement(Player player, Input input) {
         ships = player.ships;
         for (Ship ship : ships) {
-            int[] startingCoo = Input.cooInput();
+            int[] startingCoo = input.cooInput();
             if (isValidCoo(startingCoo)) {
                 if (ship.location.length = 1) {
                     ship.location[0].x = startingCoo[0];
