@@ -1,6 +1,6 @@
 package com.codecool.battleship.ship;
 
-import com.codecool.battleship.squares.Square;
+import com.codecool.battleship.square.Square;
 import com.codecool.battleship.player.Player;
 import java.util.List;
 

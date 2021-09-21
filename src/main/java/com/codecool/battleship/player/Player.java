@@ -1,8 +1,8 @@
 package com.codecool.battleship.player;
 
 import com.codecool.battleship.ship.Ship;
-import com.codecool.battleship.squares.Square;
-import com.codecool.battleship.squares.SquareStatus;
+import com.codecool.battleship.square.Square;
+import com.codecool.battleship.square.SquareStatus;
 
 import java.util.Arrays;
 import java.util.List;
