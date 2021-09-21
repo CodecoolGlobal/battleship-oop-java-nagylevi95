@@ -6,20 +6,33 @@ import com.codecool.battleship.input.Input;
 public class Battleship {
     private static Display display;
     private static Input inputs;
-    public boolean hasWon;
+    private static Game game;
+    public static boolean run;
 
     private Battleship() {
         display = new Display();
         inputs = new Input();
-        hasWon = false;
+        game = new Game();
+        run = true;
     }
 
     private static void mainMenu(){
         display.menuDisplay();
-        int chosenmode = inputs.menuInput();
+        int chosenMode = inputs.menuInput();
+        switch (chosenMode){
+            case 0:
+                game.newGame();
+            case 1:
+                display.highScore();
+            case 2:
+                run = false;
+                break;
+        }
     }
 
     public static void main(String args[]){
-        mainMenu();
+        while (run){
+            mainMenu();
+        }
     }
 }
