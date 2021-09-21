@@ -6,4 +6,7 @@ public class Display {
         System.out.println("[2]Highscores");
         System.out.println("[0]Exit");
     }
+    public void wrongInput(){
+        System.out.println("Invalid input, try again!");
+    }
 }
