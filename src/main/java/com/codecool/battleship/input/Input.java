@@ -36,7 +36,7 @@ public class Input {
         }
         int firstCoo = convertFirstCord(startingCord[0], abc);
         int secCoo = convertSecondCord(startingCord, abc);
-        if (secCoo<0 || firstCoo<0){
+        if (firstCoo<0 || secCoo<0){
             //wrong input message
             return cooInput();
         }
@@ -47,7 +47,6 @@ public class Input {
     }
 
     public int convertFirstCord(char cord, char[] abc){
-        cord = Character.toUpperCase(cord);
         int firstCord = 0;
         boolean found = false;
         for (int i=0; i< abc.length; i++){
