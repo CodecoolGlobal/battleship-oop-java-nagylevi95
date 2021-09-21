@@ -26,4 +26,29 @@ public class Square {
     public void setSquareStatus(SquareStatus squareStatus) {
         this.squareStatus = squareStatus;
     }
+
+    public String graphic(){
+        String square;
+        switch (squareStatus){
+            case EMPTY:
+                square = "";
+                break;
+            case SHIP:
+                square = "";
+                break;
+            case HIT:
+                square = "";
+                break;
+            case MISSED:
+                square = "";
+                break;
+            case SUNK:
+                square = "";
+                break;
+            default:
+                square = "";
+                break;
+        }
+        return square;
+    }
 }
