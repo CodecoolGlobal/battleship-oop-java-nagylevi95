@@ -30,23 +30,21 @@ public class Square {
     public String graphic(){
         String square;
         switch (squareStatus){
-            case EMPTY:
-                square = "";
-                break;
             case SHIP:
-                square = "";
+                square = "\t\uD83D\uDEA2";
                 break;
             case HIT:
-                square = "";
+                square = "\uD83D\uDD25";
                 break;
             case MISSED:
-                square = "";
+                square = "\uD83D\uDCA7";
                 break;
             case SUNK:
-                square = "";
+                square = "\uD83C\uDF0A";
                 break;
+            case EMPTY:
             default:
-                square = "";
+                square = "\t\uD83C\uDF2B";
                 break;
         }
         return square;
