@@ -21,12 +21,15 @@ public class Battleship {
         int chosenMode = inputs.menuInput();
         switch (chosenMode){
             case 0:
-                game.newGame();
-            case 1:
-                display.highScore();
-            case 2:
                 run = false;
                 break;
+            case 1:
+                game.newGame();
+            case 2:
+                display.highScore();
+            default:
+                System.out.println("Unfortunately you provided a wrong input, please try again!");
+                mainMenu();
         }
     }
 
