@@ -13,4 +13,13 @@ public class Battleship {
         inputs = new Input();
         hasWon = false;
     }
+
+    private static void mainMenu(){
+        display.menuDisplay();
+        int chosenmode = inputs.menuInput();
+    }
+
+    public static void main(String args[]){
+        mainMenu();
+    }
 }
