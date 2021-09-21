@@ -10,7 +10,7 @@ public class Input {
 
     public int userInt() {
         String input = "";
-        while (isInt(input)) {
+        while (!isInt(input)) {
             input = userInput.nextLine();
         }
         return Integer.parseInt(input);
