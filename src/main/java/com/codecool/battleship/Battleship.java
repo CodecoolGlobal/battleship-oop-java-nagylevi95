@@ -28,7 +28,7 @@ public class Battleship {
             case 2:
                 display.highScore();
             default:
-                System.out.println("Unfortunately you provided a wrong input, please try again!");
+                display.wrongInput();
                 mainMenu();
         }
     }
