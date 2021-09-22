@@ -8,6 +8,14 @@ public class Input {
 
     Scanner userInput = new Scanner(System.in);
 
+    public String userName(){
+        String input = userInput.nextLine();
+        if (isValidNameInput(input)){
+            return input;
+        }
+        return userName();
+    }
+
     public int userInt() {
         String input = "";
         while (!isInt(input)) {
@@ -82,5 +90,9 @@ public class Input {
         }else if (coords.length == 3){
             return Character.isDigit(coords[1]) && Character.isDigit(coords[2]);
         }else return Character.isDigit(coords[1]);
+    }
+
+    public boolean isValidNameInput(String name){
+        return name.length() <= 10;
     }
 }
