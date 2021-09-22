@@ -45,4 +45,7 @@ public class Player {
         this.name = name;
     }
 
+    public List<Ship> getShips() {
+        return ships;
+    }
 }

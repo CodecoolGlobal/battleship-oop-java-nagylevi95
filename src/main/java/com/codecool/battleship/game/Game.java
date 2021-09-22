@@ -4,6 +4,7 @@ import com.codecool.battleship.display.Display;
 import com.codecool.battleship.input.Input;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.board.Board;
+import com.codecool.battleship.square.Square;
 
 public class Game {
     private Player firstPlayer;
@@ -26,25 +27,21 @@ public class Game {
     private Game() {
         hasWon = false;
         turn = 1;
-        board = new Board();
+        board = new Board(10);
         display = new Display();
         inputs = new Input();
     }
 
     private void newGame(){
-        name = input.userName();
-        firstPlayer = new player(ships, name);
-        name = input.userName();
-        secondPlayer = new player(ships, name);
+        display.provideName();
+        name = inputs.userName();
+        placeBoard();
+        firstPlayer = new Player(firstPlayer.getShips(), name);
+        display.provideName();
+        name = inputs.userName();
+        secondPlayer = new Player(secondPlayer.getShips(), name);
         display.boardFactory();
-        choice = inputs.userInt();
-        if (choice == 1){
-            boardFactory manual;
-        }else{
-            BoardFactory random;
-        }
         play();
-        display.printResult();
     }
 
     private void play(){
@@ -68,28 +65,33 @@ public class Game {
     }
 
     private void playRound(Player currentPlayer, Player enemyPlayer){
-        board.getTable(enemyPlayer);
+        Square[][] table = board.getOcean();
         display.printEnemyTable();
-        int [] shoot = inputs.cooInput();
+        int [] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];
-        if (player.shoot(enemyPlayer, xCord, yCord, board)){
-            display.targetHit();
-        }else{
-            display.miss();
-        }
-        board.setTable(enemyPlayer);
+        currentPlayer.shoot(enemyPlayer, xCord, yCord);
+        board.setOcean(table);
         display.printEnemyTable();
     }
 
     private boolean enemyHasLost(Player enemyPlayer){
-        for (i=0; i<board.length; i++){
-            for (j=0; j<board[i].length; j++){
+        for (int i=0; i<board.length; i++){
+            for (int j=0; j<board[i].length; j++){
                 if (board[i][j] == enemyPlayer) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    private void placeBoard(){
+        int choice = inputs.userInt();
+        if (choice == 1){
+            BoardFactory manual;
+        }else{
+            BoardFactory random;
+        }
     }
 }

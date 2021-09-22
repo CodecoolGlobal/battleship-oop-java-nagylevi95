@@ -1,18 +1,19 @@
 package com.codecool.battleship;
 
 import com.codecool.battleship.display.Display;
+import com.codecool.battleship.game.Game;
 import com.codecool.battleship.input.Input;
 
 public class Battleship {
     private Display display;
     private Input inputs;
-//    private Game game;
+    private Game game;
     public boolean run;
 
     private Battleship() {
         display = new Display();
         inputs = new Input();
-//        game = new Game();
+        game = new Game();
         run = true;
     }
 
