@@ -27,7 +27,7 @@ public class BoardFactory {
     }
 
     private List<Square> placeShips(Square[][] ocean, ShipType shipType, Input input) {
-        int[] firstCoo = input.cooInput();
+        int[] firstCoo = input.userCoo();
         List<Square> shipPositions = new LinkedList<>();
         if (!isEmptyField(firstCoo, ocean) && !isValidCoo(firstCoo, ocean)) {
             return placeShips(ocean, shipType, input);
