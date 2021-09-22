@@ -1,5 +1,6 @@
 package com.codecool.battleship.game;
 
+import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.display.Display;
 import com.codecool.battleship.input.Input;
 import com.codecool.battleship.player.Player;
@@ -11,7 +12,8 @@ public class Game {
     private Player secondPlayer;
     private Display display;
     private Input inputs;
-    private Board board;
+    private Board player1Board;
+    private Board player2Board;
     private int turn;
     private boolean hasWon;
     private String name;
@@ -24,10 +26,9 @@ public class Game {
         this.turn = turn;
     }
 
-    private Game() {
+    public Game() {
         hasWon = false;
         turn = 1;
-        board = new Board(10);
         display = new Display();
         inputs = new Input();
     }
@@ -35,28 +36,29 @@ public class Game {
     private void newGame(){
         display.provideName();
         name = inputs.userName();
-        placeBoard();
+        player1Board = new Board(10);
+        placeBoard(player1Board);
         firstPlayer = new Player(firstPlayer.getShips(), name);
         display.provideName();
         name = inputs.userName();
+        player2Board = new Board(10);
+        placeBoard(player2Board);
         secondPlayer = new Player(secondPlayer.getShips(), name);
-        display.boardFactory();
         play();
     }
 
     private void play(){
         while (!hasWon){
-            turn = getTurn();
             if (turn % 2 != 0){
-                playRound(firstPlayer, secondPlayer);
-                if (enemyHasLost(secondPlayer)){
-                    display.printWinner(firstPlayer);
+                playRound(firstPlayer, secondPlayer, player2Board);
+                if (secondPlayer.isAlive(secondPlayer.getShips())){
+                    display.printWinner(firstPlayer.getName());
                     hasWon = true;
                 }
             }else{
-                playRound(secondPlayer, firstPlayer);
-                if (enemyHasLost(firstPlayer)){
-                    display.printWinner(firstPlayer);
+                playRound(secondPlayer, firstPlayer, player1Board);
+                if (firstPlayer.isAlive(firstPlayer.getShips())){
+                    display.printWinner(secondPlayer.getName());
                     hasWon = true;
                 }
             }
@@ -64,34 +66,28 @@ public class Game {
         }
     }
 
-    private void playRound(Player currentPlayer, Player enemyPlayer){
-        Square[][] table = board.getOcean();
-        display.printEnemyTable();
+    private void playRound(Player currentPlayer, Player enemyPlayer, Board board){
+        board.display();
         int [] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];
-        currentPlayer.shoot(enemyPlayer, xCord, yCord);
-        board.setOcean(table);
-        display.printEnemyTable();
+        /*if (board[xCord][yCord]. )
+            currentPlayer.shoot(enemyPlayer, xCord, yCord, board);*/
+        board.display();
     }
 
-    private boolean enemyHasLost(Player enemyPlayer){
-        for (int i=0; i<board.length; i++){
-            for (int j=0; j<board[i].length; j++){
-                if (board[i][j] == enemyPlayer) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private void placeBoard(){
+    private void placeBoard(Board board){
         int choice = inputs.userInt();
-        if (choice == 1){
-            BoardFactory manual;
-        }else{
-            BoardFactory random;
+        switch (choice){
+            case 0:
+                //boardfactory manual;
+                break;
+            case 1:
+                //boardfactory random;
+                break;
+            default:
+                display.wrongInput();
+                placeBoard(board);
         }
     }
 }
