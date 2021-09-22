@@ -67,7 +67,7 @@ public class Game {
     private void playRound(Player currentPlayer, Player enemyPlayer){
         Square[][] table = board.getOcean();
         display.printEnemyTable();
-        int [] shoot = inputs.cooInput();
+        int [] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];
         currentPlayer.shoot(enemyPlayer, xCord, yCord);
