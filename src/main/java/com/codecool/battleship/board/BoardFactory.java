@@ -21,6 +21,7 @@ public class BoardFactory {
             //display info about the ship length and ask for coordinates
             positions = placeShips(ocean, shipType, input);
             ships.add(new Ship(positions, shipType, player));
+
         }
         player.setShips(ships);
     }
