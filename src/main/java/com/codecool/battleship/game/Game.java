@@ -46,8 +46,6 @@ public class Game {
     }
 
     private void play(){
-        Board firstPlayerBoard = new Board(10);
-        Board secondPlayerBoard = new Board(10);
         while (!hasWon){
             turn = getTurn();
             if (turn % 2 != 0){
