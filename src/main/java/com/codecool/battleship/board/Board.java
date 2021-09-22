@@ -1,8 +1,11 @@
 package com.codecool.battleship.board;
 
+import com.codecool.battleship.display.Display;
 import com.codecool.battleship.square.Square;
 public class Board {
     private Square[][] ocean;
+    private boolean isHidden = false;
+    private Display display = new Display();
 
     public Square[][] getOcean() {
         return ocean;
@@ -23,5 +26,17 @@ public class Board {
 
     public void isPlacementOk(){
 
+    }
+
+    public boolean isIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(boolean ishidden) {
+        this.isHidden = ishidden;
+    }
+
+    public void display(){
+        display.displayBoard(ocean, isHidden);
     }
 }

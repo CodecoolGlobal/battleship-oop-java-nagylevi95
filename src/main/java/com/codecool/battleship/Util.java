@@ -1,14 +1,10 @@
 package com.codecool.battleship;
 
 public class Util {
-    public static void clearConsole(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
     public static String makeHeader(int size){
         char[] letters = getLetters(size, true);
         StringBuilder header = new StringBuilder("  ");
-        for (char letter: letters){
+        for (char letter: letters) {
             header.append(" ").append(letter);
         }
         return String.valueOf(header);
