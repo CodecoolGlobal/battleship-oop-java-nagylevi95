@@ -39,22 +39,25 @@ public class Game {
         firstPlayer = new Player(firstPlayer.getShips(), name);
         display.provideName();
         name = inputs.userName();
+        placeBoard();
         secondPlayer = new Player(secondPlayer.getShips(), name);
         display.boardFactory();
         play();
     }
 
     private void play(){
+        Board firstPlayerBoard = new Board(10);
+        Board secondPlayerBoard = new Board(10);
         while (!hasWon){
             turn = getTurn();
             if (turn % 2 != 0){
-                playRound(firstPlayer, secondPlayer);
+                playRound(firstPlayer, secondPlayer, secondPlayerBoard);
                 if (enemyHasLost(secondPlayer)){
                     display.printWinner(firstPlayer);
                     hasWon = true;
                 }
             }else{
-                playRound(secondPlayer, firstPlayer);
+                playRound(secondPlayer, firstPlayer, firstPlayerBoard);
                 if (enemyHasLost(firstPlayer)){
                     display.printWinner(firstPlayer);
                     hasWon = true;
@@ -64,15 +67,14 @@ public class Game {
         }
     }
 
-    private void playRound(Player currentPlayer, Player enemyPlayer){
-        Square[][] table = board.getOcean();
-        display.printEnemyTable();
+    private void playRound(Player currentPlayer, Player enemyPlayer, Board myBoardTipper){
+        display.printBoard(myBoardTipper);
         int [] shoot = inputs.cooInput();
         int xCord = shoot[0];
         int yCord = shoot[1];
-        currentPlayer.shoot(enemyPlayer, xCord, yCord);
-        board.setOcean(table);
-        display.printEnemyTable();
+        if (myBoardTipper[xCord][yCord]. )
+        currentPlayer.shoot(enemyPlayer, xCord, yCord, myBoardTipper);
+        display.printBoard(myBoardTipper);
     }
 
     private boolean enemyHasLost(Player enemyPlayer){
