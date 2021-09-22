@@ -48,4 +48,8 @@ public class Player {
     public List<Ship> getShips() {
         return ships;
     }
+
+    public void setShips(List<Ship> ships) {
+        this.ships = ships;
+    }
 }

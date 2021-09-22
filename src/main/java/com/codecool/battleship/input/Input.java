@@ -1,6 +1,7 @@
 package com.codecool.battleship.input;
 
 import com.codecool.battleship.Util;
+import com.codecool.battleship.ship.Compass;
 
 import java.util.Scanner;
 
@@ -14,6 +15,28 @@ public class Input {
             return input;
         }
         return userName();
+    }
+
+    public int[] getDirection(){
+        String input = userInput.nextLine();
+        int[] direction;
+        switch (input.toLowerCase()){
+            case "n":
+                direction = Compass.NORTH.getCoo();
+                return direction;
+            case "s":
+                direction = Compass.SOUTH.getCoo();
+                return direction;
+            case "e":
+                direction = Compass.EAST.getCoo();
+                return direction;
+            case "w":
+                direction = Compass.WEST.getCoo();
+                return direction;
+            default:
+                //wrong input
+                return getDirection();
+        }
     }
 
     public int userInt() {
