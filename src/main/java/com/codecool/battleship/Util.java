@@ -4,12 +4,9 @@ public class Util {
     public static String makeHeader(int size){
         char[] letters = getLetters(size, true);
         StringBuilder header = new StringBuilder("  ");
-        for (char letter: letters){
+        for (char letter: letters) {
             header.append(" ").append(letter);
         }
-        StringBuilder head = header;
-        header.append(" || ");
-        header.append(head);
         return String.valueOf(header);
     }
     public static char[] getLetters(int count, boolean capital){

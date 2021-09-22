@@ -12,35 +12,40 @@ public class Display {
     public void wrongInput(){
         System.out.println("Invalid input, try again!");
     }
-    public static void clearConsole(){
+
+    public void clearConsole(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    public void displayBoards(Square[][] ocean1, Square[][] ocean2){
-        String header = Util.makeHeader(ocean1.length);
+
+    public void displayBoard(Square[][] ocean, boolean isHidden){
+        String header = Util.makeHeader(ocean.length);
         System.out.println(header);
-        for (int i = 0; i < ocean1.length; i++){
-            StringBuilder board1;
+        for (int i = 0; i < ocean.length; i++){
+            StringBuilder row;
             if (i < 10){
-                board1 = new StringBuilder(" " + i);
+                row = new StringBuilder(" " + i);
             }
             else{
-                board1 = new StringBuilder(i);
+                row = new StringBuilder(i);
             }
-            StringBuilder board2 = new StringBuilder(" ");
-            for ( int j = 0; j < ocean1.length; j++){
-                board1.append(ocean1[i][j].graphic()).append(" ");
-                board1.append(ocean2[i][j].graphic()).append(" ");
+            for ( int j = 0; j < ocean.length; j++){
+                if(isHidden && ocean[i][j].graphic().equals("\uD83D\uDEA2")){
+                    row.append("\uD83D\uDCA8");
+                }
+                else{
+                    row.append(ocean[i][j].graphic());
+                }
             }
-            if (i < 10){
-                board2.append(" ").append(i);
-            }
-            else{
-                board2.append(i);
-            }
-            board1.append(" || ");
-            board1.append(board2);
-            System.out.println(board1);
+            System.out.println(row);
         }
+    }
+
+    public void provideName(){
+        System.out.println("Please provide me your nickname!");
+    }
+
+    public void printWinner(String player){
+        System.out.println(player + " won the game!");
     }
 }

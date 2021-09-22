@@ -28,25 +28,6 @@ public class Square {
     }
 
     public String graphic(){
-        String square;
-        switch (squareStatus){
-            case SHIP:
-                square = "\t\uD83D\uDEA2";
-                break;
-            case HIT:
-                square = "\uD83D\uDD25";
-                break;
-            case MISSED:
-                square = "\uD83D\uDCA7";
-                break;
-            case SUNK:
-                square = "\uD83C\uDF0A";
-                break;
-            case EMPTY:
-            default:
-                square = "\t\uD83C\uDF2B";
-                break;
-        }
-        return square;
+        return squareStatus.getGraphic();
     }
 }
