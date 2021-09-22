@@ -62,7 +62,7 @@ public class Game {
                     hasWon = true;
                 }
             }
-            setTurn(turn+1);
+            turn++;
         }
     }
 
