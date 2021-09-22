@@ -15,7 +15,7 @@ public class BoardFactory {
         List<Ship> ships = player.getShips();
         Square[][] ocean = board.getOcean();
         for (Ship ship : ships) {
-            int[] startingCoo = input.cooInput();
+            int[] startingCoo = input.userCoo();
             if (isValidCoo(startingCoo, ocean) && isEmptyField(startingCoo, ocean)) {
                 // place small ship here
             }
