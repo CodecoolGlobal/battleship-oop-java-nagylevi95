@@ -75,8 +75,8 @@ public class Input {
             return userCoo();
         }
         int[] startingCoo = new int[2];
-        startingCoo[0] = firstCoo;
-        startingCoo[1] = secCoo;
+        startingCoo[1] = firstCoo;
+        startingCoo[0] = secCoo;
         return startingCoo;
     }
 
@@ -103,7 +103,7 @@ public class Input {
         } else {
             convertCord = String.valueOf(cords[1]);
         }
-        int coo = Integer.parseInt(convertCord) - 1;
+        int coo = Integer.parseInt(convertCord);
         if (coo < abc.length) {
             return coo;
         }
