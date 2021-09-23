@@ -16,12 +16,12 @@ public class BoardFactory {
     private final Display display = new Display();
     private final Input input = new Input();
 
-    public void automaticPlacement(Player player, Board board){
+    public void preparePlacement(Player player, Board board, boolean auto){
         List<Ship> ships = new LinkedList<>();
         List<Square> positions;
         Square[][] ocean = board.getOcean();
         for (ShipType shipType : ShipType.values()) {
-            positions = autoPlaceShips(ocean, shipType);
+            positions = getShips (ocean, shipType, auto);
             markShips(positions);
             ships.add(new Ship(positions, shipType, player));
             board.display();
@@ -29,14 +29,25 @@ public class BoardFactory {
         player.setShips(ships);
     }
 
-    private List<Square> autoPlaceShips(Square[][] ocean, ShipType shipType) {
-        int[] firstCoo = input.randomCoo();
+    private List<Square> getShips(Square[][] ocean, ShipType shipType, boolean auto) {
+        int [] firstCoo;
+        if (auto){
+            firstCoo = input.randomCoo();
+        }else{
+            display.providePlacementCoo(shipType);
+            firstCoo = input.userCoo();
+        }
         List<Square> shipPositions = new LinkedList<>();
         if (!isEmptyField(firstCoo, ocean)) {
-            return autoPlaceShips(ocean, shipType);
+            return getShips(ocean, shipType, auto);
         }
-
-        int[] direction = input.randomDir();
+        int[] direction;
+        if (auto){
+            direction = input.randomDir();
+        }else{
+            display.provideDir();
+            direction = input.getDirection();
+        }
         Square targetSquare = ocean[firstCoo[0]][firstCoo[1]];
         int i = 1;
         int[] nextCoo = new int[2];
@@ -47,50 +58,7 @@ public class BoardFactory {
                 placeShip(ocean, nextCoo, shipPositions);
                 i++;
             }else {
-                return autoPlaceShips(ocean, shipType);
-            }
-        }
-        shipPositions.add(targetSquare);
-        return shipPositions;
-    }
-
-
-    public void manualPlacement(Player player, Board board) {
-        List<Ship> ships = new LinkedList<>();
-        List<Square> positions;
-        Square[][] ocean = board.getOcean();
-        for (ShipType shipType : ShipType.values()) {
-            board.display();
-            positions = placeShips(ocean, shipType);
-            markShips(positions);
-            ships.add(new Ship(positions, shipType, player));
-
-        }
-        player.setShips(ships);
-    }
-
-    private List<Square> placeShips(Square[][] ocean, ShipType shipType) {
-        display.providePlacementCoo(shipType);
-        int[] firstCoo = input.userCoo();
-        List<Square> shipPositions = new LinkedList<>();
-        if (!isEmptyField(firstCoo, ocean) || !isValidCoo(firstCoo, ocean)) {
-            display.wrongInput();
-            return placeShips(ocean, shipType);
-        }
-        display.provideDir();
-        int[] direction = input.getDirection();
-        Square targetSquare = ocean[firstCoo[0]][firstCoo[1]];
-        int i = 1;
-        int[] nextCoo = new int[2];
-        while (i < shipType.getLength()) {
-            nextCoo[0] = firstCoo[0] + direction[0]*i;
-            nextCoo[1] = firstCoo[1] + direction[1]*i;
-            if (isValidCoo(nextCoo, ocean) && isEmptyField(nextCoo,ocean)) {
-                placeShip(ocean, nextCoo, shipPositions);
-                i++;
-            }else {
-                display.wrongInput();
-                return placeShips(ocean, shipType);
+                return getShips(ocean, shipType, auto);
             }
         }
         shipPositions.add(targetSquare);

@@ -9,6 +9,7 @@ import com.codecool.battleship.square.Square;
 import com.codecool.battleship.square.SquareStatus;
 
 public class Game {
+    private boolean autoPlacement = false;
     private Player player1;
     private Player player2;
     private final Display display = new Display();
@@ -89,14 +90,15 @@ public class Game {
         int choice = inputs.userInt();
         switch (choice) {
             case 1:
-                boardFactory.manualPlacement(player, board);
+                autoPlacement = false;
                 break;
             case 2:
-                boardFactory.automaticPlacement(player, board);
+                autoPlacement = true;
                 break;
             default:
                 display.wrongInput();
                 placeBoard(player, board);
         }
+        boardFactory.preparePlacement(player, board, autoPlacement);
     }
 }
