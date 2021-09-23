@@ -39,4 +39,14 @@ public class Ship {
     public List<Square> getPosition() {
         return position;
     }
+
+    public boolean isSunk() {
+        for (Square square : this.position) {
+            if (square.getSquareStatus() == SquareStatus.SHIP) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
