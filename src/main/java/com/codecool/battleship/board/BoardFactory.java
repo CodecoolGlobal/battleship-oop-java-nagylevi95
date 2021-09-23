@@ -55,6 +55,12 @@ public class BoardFactory {
         shipPositions.add(targetSquare);
     }
 
+    private void markShips(List<Square> shipPositions){
+        for (Square position:shipPositions){
+            position.setSquareStatus(SquareStatus.SHIP);
+        }
+    }
+
     public boolean isValidCoo(int[] inputCoo, Square[][] ocean) {
         int length = ocean.length;
         return 0 <= inputCoo[0] && 0 <= inputCoo[1] && inputCoo[0] <= length && inputCoo[1] <= length;
