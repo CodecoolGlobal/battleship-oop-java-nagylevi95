@@ -28,13 +28,19 @@ public class Game {
         return inputs.userName();
     }
     
-    public void newGame() {
+    public void newGame(String ai) {
         player1 = new Player(getPlayerName());
         player1Board = new Board(10);
         placeBoard(player1, player1Board);
-        player2 = new Player(getPlayerName());
-        player2Board = new Board(10);
-        placeBoard(player2, player2Board);
+        if (ai != null){
+            player2 = new Player(ai);
+            player2Board = new Board(10);
+            boardFactory.preparePlacement(player2, player2Board, true);
+        }else{
+            player2 = new Player(getPlayerName());
+            player2Board = new Board(10);
+            placeBoard(player2, player2Board);
+        }
         play();
     }
 
@@ -45,6 +51,8 @@ public class Game {
         }
         if (!player2.isAlive()) {
             display.printWinner(player1.getName());
+        }else if (!player1.isAlive()){
+            display.printWinner(player2.getName());
         }
     }
 
@@ -71,17 +79,21 @@ public class Game {
     }
 
     public void fire(){
-        display.provideShootCoo();
-        int[] shoot = inputs.userCoo();
-        int xCord = shoot[0];
-        int yCord = shoot[1];
-        Square targetSquare = enemyBoard.getOcean()[xCord][yCord];
-        if (targetSquare.getSquareStatus() == SquareStatus.SHIP ||
-                targetSquare.getSquareStatus() == SquareStatus.EMPTY) {
-            currentPlayer.shoot(enemyPlayer, targetSquare);
-        } else {
-            display.displayShotSquare();
-            fire();
+        if(currentPlayer.getName().equals("Unbeatable AI")){
+            currentPlayer.UnbeatableAiShoot(enemyPlayer, enemyBoard);
+        }else{
+            display.provideShootCoo();
+            int[] shoot = inputs.userCoo();
+            int xCord = shoot[0];
+            int yCord = shoot[1];
+            Square targetSquare = enemyBoard.getOcean()[xCord][yCord];
+            if (targetSquare.getSquareStatus() == SquareStatus.SHIP ||
+                    targetSquare.getSquareStatus() == SquareStatus.EMPTY) {
+                currentPlayer.shoot(enemyPlayer, targetSquare);
+            } else {
+                display.displayShotSquare();
+                fire();
+            }
         }
     }
 

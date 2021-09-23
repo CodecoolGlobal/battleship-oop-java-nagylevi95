@@ -26,10 +26,12 @@ public class Battleship {
                     run = false;
                     break;
                 case 1:
-                    System.out.println("new game");
-                    game.newGame();
+                    game.newGame(null);
                     break;
                 case 2:
+                    game.newGame("Unbeatable AI");
+                    break;
+                case 3:
                     System.out.println("high score");
 //                    display.highScore();
                     break;

@@ -51,6 +51,31 @@ public class Player {
         return false;
     }
 
+    public void UnbeatableAiShoot(Player enemyPlayer, Board board) {
+        Square[][] table = board.getOcean();
+        int x= 0;
+        int y = 0;
+        for (int i= 0; i<table.length; i++){
+            for (int j= 0; j<table[i].length; j++){
+                if(table[i][j].getSquareStatus() == SquareStatus.SHIP){
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+        for (Ship ship : enemyPlayer.getShips()) {
+            for (Square pos : ship.getPosition()) {
+                if (pos.getX() == x && pos.getY() == y) {
+                    pos.setSquareStatus(SquareStatus.HIT);
+                    if (ship.isSunk()){
+                        markSunk(ship);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     public String getName() {
         return name;
     }

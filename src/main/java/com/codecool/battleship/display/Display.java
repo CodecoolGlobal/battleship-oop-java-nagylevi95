@@ -7,8 +7,9 @@ import com.codecool.battleship.square.Square;
 
 public class Display {
     public void displayMenu(){
-        System.out.println("[1]New Game");
-        System.out.println("[2]Highscores");
+        System.out.println("[1]Player vs. Player");
+        System.out.println("[2]Player vs. Unbeatable AI");
+        System.out.println("[3]Highscores");
         System.out.println("[0]Exit");
     }
 
