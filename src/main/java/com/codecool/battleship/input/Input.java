@@ -4,6 +4,7 @@ import com.codecool.battleship.Util;
 import com.codecool.battleship.display.Display;
 import com.codecool.battleship.ship.Compass;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Input {
@@ -121,5 +122,12 @@ public class Input {
 
     public boolean isValidNameInput(String name) {
         return name.length() <= 10;
+    }
+
+    public int[] randomCoo(){
+        int[] startingCoo = new int[2];
+        startingCoo[0] = new Random().nextInt(10);
+        startingCoo[1] = new Random().nextInt(10);
+        return startingCoo;
     }
 }
