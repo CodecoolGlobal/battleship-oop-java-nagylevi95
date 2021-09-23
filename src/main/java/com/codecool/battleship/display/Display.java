@@ -62,4 +62,8 @@ public class Display {
     public void provideDir(){
         System.out.println("Please select the direction of the placed ship! (N,S,E,W)");
     }
+
+    public void provideShootCoo(){
+        System.out.println("Please provide a coordinate to shoot!");
+    }
 }
