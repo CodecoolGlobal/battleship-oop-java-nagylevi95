@@ -10,6 +10,12 @@ public class Display {
         System.out.println("[2]Highscores");
         System.out.println("[0]Exit");
     }
+
+    public void placementSelection(){
+        System.out.println("[1]Manual placement");
+        System.out.println("[2]Automatic placement");
+    }
+
     public void wrongInput(){
         System.out.println("Invalid input, try again!");
     }
