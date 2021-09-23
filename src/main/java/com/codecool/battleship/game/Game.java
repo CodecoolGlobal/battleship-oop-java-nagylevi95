@@ -84,7 +84,7 @@ public class Game {
                 boardFactory.manualPlacement(player, board);
                 break;
             case 2:
-                //boardfactory random;
+                boardFactory.automaticPlacement(player, board);
                 break;
             default:
                 display.wrongInput();
