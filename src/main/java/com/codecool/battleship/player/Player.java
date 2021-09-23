@@ -31,6 +31,13 @@ public class Player {
         }
     }
 
+    private void markSunk(Ship ship){
+        for (Square square:ship.getPosition()){
+            square.setSquareStatus(SquareStatus.SUNK);
+        }
+        ship.setSunk(true);
+    }
+
     public boolean isAlive() {
         for (Ship ship : ships) {
             if (!ship.getSunk()) {
