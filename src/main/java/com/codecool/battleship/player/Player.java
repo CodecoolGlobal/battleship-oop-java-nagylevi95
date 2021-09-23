@@ -1,5 +1,6 @@
 package com.codecool.battleship.player;
 
+import com.codecool.battleship.display.Display;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.square.Square;
 import com.codecool.battleship.square.SquareStatus;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Player {
+    private Display display;
     private List<Ship> ships;
     private String name;
 
@@ -64,5 +66,9 @@ public class Player {
 
     public void setShips(List<Ship> ships) {
         this.ships = ships;
+    }
+
+    public void displayRound(){
+        display.displayPlayerRound(name);
     }
 }

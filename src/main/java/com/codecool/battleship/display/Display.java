@@ -1,6 +1,7 @@
 package com.codecool.battleship.display;
 
 import com.codecool.battleship.Util;
+import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.square.Square;
 
@@ -65,5 +66,9 @@ public class Display {
 
     public void provideShootCoo(){
         System.out.println("Please provide a coordinate to shoot!");
+    }
+
+    public void displayPlayerRound(String name){
+        System.out.println("Your turn to fire " + name + "!");
     }
 }
