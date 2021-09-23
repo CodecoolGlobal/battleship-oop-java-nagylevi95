@@ -2,6 +2,8 @@ package com.codecool.battleship.ship;
 
 import com.codecool.battleship.square.Square;
 import com.codecool.battleship.player.Player;
+import com.codecool.battleship.square.SquareStatus;
+
 import java.util.List;
 
 
@@ -22,7 +24,7 @@ public class Ship {
     public Player getPlayer() {
         return player;
     }
-    
+
 
     public boolean getSunk() {
         return isSunk;

@@ -17,17 +17,20 @@ public class Player {
     }
 
     public void shoot(Player enemyPlayer, int x, int y, Board board) {
+        Square targetSquare = board.getOcean()[x][y];
         for (Ship ship : enemyPlayer.ships) {
             for (Square pos : ship.getPosition()) {
-                if (pos.getX() == x && pos.getY() == y) {
+                if (pos == targetSquare) {
                     pos.setSquareStatus(SquareStatus.HIT);
-                    board.getOcean()[x][y].setSquareStatus(SquareStatus.HIT);
-
+                    if (ship.isSunk()){
+                        markSunk(ship);
+                    }
                     break;
-                } else if (board.getOcean()[x][y].getSquareStatus() != (SquareStatus.HIT) && board.getOcean()[x][y].getSquareStatus() != (SquareStatus.HIT)) {
-                    board.getOcean()[x][y].setSquareStatus(SquareStatus.MISSED);
                 }
             }
+        }
+        if (targetSquare.getSquareStatus() == SquareStatus.EMPTY) {
+            targetSquare.setSquareStatus(SquareStatus.MISSED);
         }
     }
 
