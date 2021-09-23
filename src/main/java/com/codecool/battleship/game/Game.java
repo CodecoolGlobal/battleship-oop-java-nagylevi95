@@ -67,6 +67,7 @@ public class Game {
 
     private void playRound(Player currentPlayer, Player enemyPlayer, Board board){
         board.display();
+        display.provideShootCoo();
         int [] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];

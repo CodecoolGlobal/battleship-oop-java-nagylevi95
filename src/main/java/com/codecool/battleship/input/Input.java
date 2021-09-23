@@ -43,7 +43,7 @@ public class Input {
     }
 
     public int userInt() {
-        String input = "";
+        String input = userInput.nextLine();
         while (!isInt(input)) {
             input = userInput.nextLine();
         }
@@ -56,6 +56,7 @@ public class Input {
             return true;
         } catch (
                 NumberFormatException e) {
+            display.wrongInput();
             return false;
         }
     }
