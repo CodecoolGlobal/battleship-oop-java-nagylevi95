@@ -3,6 +3,7 @@ package com.codecool.battleship.player;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.square.Square;
 import com.codecool.battleship.square.SquareStatus;
+import com.codecool.battleship.board.Board;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,25 +16,28 @@ public class Player {
         this.name = name;
     }
 
-    public void shoot(Player enemyPlayer,int x, int y){
-        for (Ship ship: enemyPlayer.ships){
-            for (Square pos: ship.getPosition()){
-                if (pos.getX() == x && pos.getY() == y && pos.getSquareStatus() != SquareStatus.HIT && pos.getSquareStatus() != SquareStatus.SUNK ){
+    public void shoot(Player enemyPlayer, int x, int y, Board board) {
+        for (Ship ship : enemyPlayer.ships) {
+            for (Square pos : ship.getPosition()) {
+                if (pos.getX() == x && pos.getY() == y) {
                     pos.setSquareStatus(SquareStatus.HIT);
+                    board.getOcean()[x][y].setSquareStatus(SquareStatus.HIT);
+
+                    break;
+                } else if (board.getOcean()[x][y].getSquareStatus() != (SquareStatus.HIT) && board.getOcean()[x][y].getSquareStatus() != (SquareStatus.HIT)) {
+                    board.getOcean()[x][y].setSquareStatus(SquareStatus.MISSED);
                 }
             }
         }
     }
 
-    public boolean isAlive(List<Ship> ships){
-        int playerALlShipNumber = ships.size();
-        int playerSunkShipsNumber = 0;
-        for (Ship ship: ships){
-            if (ship.getSunk()){
-                playerSunkShipsNumber++;
+    public boolean isAlive() {
+        for (Ship ship : ships) {
+            if (!ship.getSunk()) {
+                return true;
             }
         }
-        return playerALlShipNumber != playerSunkShipsNumber;
+        return false;
     }
 
     public String getName() {

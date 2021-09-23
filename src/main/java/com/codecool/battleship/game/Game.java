@@ -6,6 +6,7 @@ import com.codecool.battleship.input.Input;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.square.Square;
+import com.codecool.battleship.square.SquareStatus;
 
 public class Game {
     private Player firstPlayer;
@@ -32,7 +33,7 @@ public class Game {
         turn = 1;
     }
 
-    public void newGame(){
+    public void newGame() {
         display.provideName();
         name = inputs.userName();
         firstPlayer = new Player(name);
@@ -46,17 +47,21 @@ public class Game {
         play();
     }
 
-    private void play(){
-        while (!hasWon){
-            if (turn % 2 != 0){
+    private void play() {
+        while (!hasWon) {
+            player1Board.setIsHidden(false);
+            player2Board.setIsHidden(false);
+            if (turn % 2 != 0) {
+                player2Board.display();
                 playRound(firstPlayer, secondPlayer, player2Board);
-                if (secondPlayer.isAlive(secondPlayer.getShips())){
+                if (!secondPlayer.isAlive()) {
                     display.printWinner(firstPlayer.getName());
                     hasWon = true;
                 }
-            }else{
+            } else {
+                player1Board.display();
                 playRound(secondPlayer, firstPlayer, player1Board);
-                if (firstPlayer.isAlive(firstPlayer.getShips())){
+                if (!firstPlayer.isAlive()) {
                     display.printWinner(secondPlayer.getName());
                     hasWon = true;
                 }
@@ -65,21 +70,26 @@ public class Game {
         }
     }
 
-    private void playRound(Player currentPlayer, Player enemyPlayer, Board board){
+    private void playRound(Player currentPlayer, Player enemyPlayer, Board board) {
+        board.setIsHidden(true);
         board.display();
         display.provideShootCoo();
-        int [] shoot = inputs.userCoo();
+        int[] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];
-        /*if (board[xCord][yCord]. )
-            currentPlayer.shoot(enemyPlayer, xCord, yCord, board);*/
+        if (board.getOcean()[xCord][yCord].getSquareStatus() == SquareStatus.SHIP ||
+                board.getOcean()[xCord][yCord].getSquareStatus() == SquareStatus.EMPTY) {
+            currentPlayer.shoot(enemyPlayer, xCord, yCord, board);
+        } else {
+            playRound(currentPlayer, enemyPlayer, board);
+        }
         board.display();
     }
 
-    private void placeBoard(Player player, Board board){
+    private void placeBoard(Player player, Board board) {
         display.placementSelection();
         int choice = inputs.userInt();
-        switch (choice){
+        switch (choice) {
             case 1:
                 boardFactory.manualPlacement(player, board);
                 break;
