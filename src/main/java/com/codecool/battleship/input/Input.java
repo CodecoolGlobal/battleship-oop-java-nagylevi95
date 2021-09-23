@@ -130,4 +130,8 @@ public class Input {
         startingCoo[1] = new Random().nextInt(10);
         return startingCoo;
     }
+
+    public int[] randomDir(){
+        return Compass.values()[new Random().nextInt(Compass.values().length)].getCoo();
+    }
 }
