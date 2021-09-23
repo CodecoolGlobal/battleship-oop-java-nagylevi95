@@ -11,8 +11,7 @@ public class Player {
     private List<Ship> ships;
     private String name;
 
-    public Player(List<Ship> ships, String name) {
-        this.ships = ships;
+    public Player(String name) {
         this.name = name;
     }
 

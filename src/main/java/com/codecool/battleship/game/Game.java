@@ -10,13 +10,14 @@ import com.codecool.battleship.square.Square;
 public class Game {
     private Player firstPlayer;
     private Player secondPlayer;
-    private Display display;
-    private Input inputs;
+    private final Display display = new Display();
+    private final Input inputs = new Input();
     private Board player1Board;
     private Board player2Board;
     private int turn;
     private boolean hasWon;
     private String name;
+    private final BoardFactory boardFactory = new BoardFactory();
 
     private int getTurn() {
         return turn;
@@ -29,21 +30,19 @@ public class Game {
     public Game() {
         hasWon = false;
         turn = 1;
-        display = new Display();
-        inputs = new Input();
     }
 
-    private void newGame(){
+    public void newGame(){
         display.provideName();
         name = inputs.userName();
+        firstPlayer = new Player(name);
         player1Board = new Board(10);
-        placeBoard(player1Board);
-        firstPlayer = new Player(firstPlayer.getShips(), name);
+        placeBoard(firstPlayer, player1Board);
         display.provideName();
         name = inputs.userName();
+        secondPlayer = new Player(name);
         player2Board = new Board(10);
-        placeBoard(player2Board);
-        secondPlayer = new Player(secondPlayer.getShips(), name);
+        placeBoard(secondPlayer, player2Board);
         play();
     }
 
@@ -76,18 +75,19 @@ public class Game {
         board.display();
     }
 
-    private void placeBoard(Board board){
+    private void placeBoard(Player player, Board board){
+        // display needed
         int choice = inputs.userInt();
         switch (choice){
             case 0:
-                //boardfactory manual;
+                boardFactory.manualPlacement(player, board, inputs);
                 break;
             case 1:
                 //boardfactory random;
                 break;
             default:
                 display.wrongInput();
-                placeBoard(board);
+                placeBoard(player, board);
         }
     }
 }

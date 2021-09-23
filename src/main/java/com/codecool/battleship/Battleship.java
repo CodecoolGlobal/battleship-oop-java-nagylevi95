@@ -27,7 +27,7 @@ public class Battleship {
                     break;
                 case 1:
                     System.out.println("new game");
-//                    game.newGame();
+                    game.newGame();
                     break;
                 case 2:
                     System.out.println("high score");
