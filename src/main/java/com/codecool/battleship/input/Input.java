@@ -83,6 +83,7 @@ public class Input {
     }
 
     public int convertFirstCord(char cord, char[] abc) {
+        cord = Character.toLowerCase(cord);
         int firstCord = 0;
         boolean found = false;
         for (int i = 0; i < abc.length; i++) {
