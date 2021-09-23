@@ -71,4 +71,8 @@ public class Display {
     public void displayPlayerRound(String name){
         System.out.println("Your turn to fire " + name + "!");
     }
+
+    public void displayShotSquare(){
+        System.out.println("That square has been targeted before! Pick a different target!");
+    }
 }
