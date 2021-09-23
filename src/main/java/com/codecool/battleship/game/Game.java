@@ -76,13 +76,13 @@ public class Game {
     }
 
     private void placeBoard(Player player, Board board){
-        // display needed
+        display.placementSelection();
         int choice = inputs.userInt();
         switch (choice){
-            case 0:
+            case 1:
                 boardFactory.manualPlacement(player, board);
                 break;
-            case 1:
+            case 2:
                 //boardfactory random;
                 break;
             default:
