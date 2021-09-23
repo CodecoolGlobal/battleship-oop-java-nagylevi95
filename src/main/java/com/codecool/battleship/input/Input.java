@@ -1,26 +1,29 @@
 package com.codecool.battleship.input;
 
 import com.codecool.battleship.Util;
+import com.codecool.battleship.display.Display;
 import com.codecool.battleship.ship.Compass;
 
 import java.util.Scanner;
 
 public class Input {
 
+    private final Display display = new Display();
+
     Scanner userInput = new Scanner(System.in);
 
-    public String userName(){
+    public String userName() {
         String input = userInput.nextLine();
-        if (isValidNameInput(input)){
+        if (isValidNameInput(input)) {
             return input;
         }
         return userName();
     }
 
-    public int[] getDirection(){
+    public int[] getDirection() {
         String input = userInput.nextLine();
         int[] direction;
-        switch (input.toLowerCase()){
+        switch (input.toLowerCase()) {
             case "n":
                 direction = Compass.NORTH.getCoo();
                 return direction;
@@ -34,7 +37,7 @@ public class Input {
                 direction = Compass.WEST.getCoo();
                 return direction;
             default:
-                //wrong input
+                display.wrongInput();
                 return getDirection();
         }
     }
@@ -57,18 +60,18 @@ public class Input {
         }
     }
 
-    public int [] userCoo(){
+    public int[] userCoo() {
         char[] abc = Util.getLetters(10, false);
         String move = userInput.nextLine();
-        char [] startingCord = move.toCharArray();
-        if (!isValidCooInput(startingCord)){
-            //wrong input message
+        char[] startingCord = move.toCharArray();
+        if (!isValidCooInput(startingCord)) {
+            display.wrongInput();
             return userCoo();
         }
         int firstCoo = convertFirstCord(startingCord[0], abc);
         int secCoo = convertSecondCord(startingCord, abc);
-        if (firstCoo<0 || secCoo<0){
-            //wrong input message
+        if (firstCoo < 0 || secCoo < 0) {
+            display.wrongInput();
             return userCoo();
         }
         int[] startingCoo = new int[2];
@@ -77,45 +80,45 @@ public class Input {
         return startingCoo;
     }
 
-    public int convertFirstCord(char cord, char[] abc){
+    public int convertFirstCord(char cord, char[] abc) {
         int firstCord = 0;
         boolean found = false;
-        for (int i=0; i< abc.length; i++){
-            if (abc[i] == cord){
+        for (int i = 0; i < abc.length; i++) {
+            if (abc[i] == cord) {
                 firstCord = i;
                 found = true;
             }
         }
-        if (found){
+        if (found) {
             return firstCord;
         }
         return -1;
     }
 
 
-    public int convertSecondCord(char [] cords, char[] abc){
+    public int convertSecondCord(char[] cords, char[] abc) {
         String convertCord;
-        if (cords.length >2){
+        if (cords.length > 2) {
             convertCord = String.valueOf(cords[1]) + cords[2];
-        }else{
+        } else {
             convertCord = String.valueOf(cords[1]);
         }
-        int coo = Integer.parseInt(convertCord)-1;
-        if (coo<abc.length){
+        int coo = Integer.parseInt(convertCord) - 1;
+        if (coo < abc.length) {
             return coo;
         }
         return -1;
     }
 
-    public boolean isValidCooInput(char [] coords){
-        if (coords.length<2 || coords.length>3){
+    public boolean isValidCooInput(char[] coords) {
+        if (coords.length < 2 || coords.length > 3) {
             return false;
-        }else if (coords.length == 3){
+        } else if (coords.length == 3) {
             return Character.isDigit(coords[1]) && Character.isDigit(coords[2]);
-        }else return Character.isDigit(coords[1]);
+        } else return Character.isDigit(coords[1]);
     }
 
-    public boolean isValidNameInput(String name){
+    public boolean isValidNameInput(String name) {
         return name.length() <= 10;
     }
 }

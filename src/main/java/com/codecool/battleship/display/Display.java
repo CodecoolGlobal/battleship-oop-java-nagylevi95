@@ -1,6 +1,7 @@
 package com.codecool.battleship.display;
 
 import com.codecool.battleship.Util;
+import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.square.Square;
 
 public class Display {
@@ -47,5 +48,12 @@ public class Display {
 
     public void printWinner(String player){
         System.out.println(player + " won the game!");
+    }
+
+    public void providePlacementCoo(ShipType shipType){
+        System.out.println("Please provide a coordinate for "+shipType+". The length of this ship is: "+shipType.getLength());
+    }
+    public void provideDir(){
+        System.out.println("Please select the direction of the placed ship! (N,S,E,W)");
     }
 }

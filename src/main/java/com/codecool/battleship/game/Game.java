@@ -80,7 +80,7 @@ public class Game {
         int choice = inputs.userInt();
         switch (choice){
             case 0:
-                boardFactory.manualPlacement(player, board, inputs);
+                boardFactory.manualPlacement(player, board);
                 break;
             case 1:
                 //boardfactory random;

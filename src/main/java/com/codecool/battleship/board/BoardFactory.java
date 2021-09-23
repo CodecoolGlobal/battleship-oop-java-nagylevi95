@@ -1,5 +1,6 @@
 package com.codecool.battleship.board;
 
+import com.codecool.battleship.display.Display;
 import com.codecool.battleship.input.Input;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
@@ -12,13 +13,15 @@ import java.util.List;
 
 public class BoardFactory {
 
-    //theoretically works with the smallest ships
-    public void manualPlacement(Player player, Board board, Input input) {
+    private final Display display = new Display();
+    private final Input input = new Input();
+
+    public void manualPlacement(Player player, Board board) {
         List<Ship> ships = new LinkedList<>();
         List<Square> positions;
         Square[][] ocean = board.getOcean();
         for (ShipType shipType : ShipType.values()) {
-            //display info about the ship length and ask for coordinates
+            display.providePlacementCoo(shipType);
             positions = placeShips(ocean, shipType, input);
             ships.add(new Ship(positions, shipType, player));
 
@@ -32,15 +35,13 @@ public class BoardFactory {
         if (!isEmptyField(firstCoo, ocean) && !isValidCoo(firstCoo, ocean)) {
             return placeShips(ocean, shipType, input);
         }
-        //ask user for direction
-
-        int [] direction = input.getDirection();
-
+        display.provideDir();
+        int[] direction = input.getDirection();
         Square targetSquare = ocean[firstCoo[0]][firstCoo[1]];
         targetSquare.setSquareStatus(SquareStatus.SHIP);
         shipPositions.add(targetSquare);
         int i = 1;
-        while (i < shipType.getLength()){
+        while (i < shipType.getLength()) {
             placeShip(ocean, firstCoo, shipPositions, direction);
             i++;
         }
@@ -49,7 +50,7 @@ public class BoardFactory {
 
     private void placeShip(Square[][] ocean, int[] firstCoo, List<Square> shipPositions, int[] direction) {
         Square targetSquare;
-        targetSquare = ocean[firstCoo[0] + direction[0]][firstCoo[1]+ direction[1]];
+        targetSquare = ocean[firstCoo[0] + direction[0]][firstCoo[1] + direction[1]];
         targetSquare.setSquareStatus(SquareStatus.SHIP);
         shipPositions.add(targetSquare);
     }
