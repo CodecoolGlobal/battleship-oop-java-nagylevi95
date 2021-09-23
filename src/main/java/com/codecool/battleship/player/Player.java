@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Player {
-    private Display display;
+    private Display display = new Display();
     private List<Ship> ships;
     private String name;
 
@@ -18,8 +18,7 @@ public class Player {
         this.name = name;
     }
 
-    public void shoot(Player enemyPlayer, int x, int y, Board board) {
-        Square targetSquare = board.getOcean()[x][y];
+    public void shoot(Player enemyPlayer, Square targetSquare) {
         for (Ship ship : enemyPlayer.ships) {
             for (Square pos : ship.getPosition()) {
                 if (pos == targetSquare) {

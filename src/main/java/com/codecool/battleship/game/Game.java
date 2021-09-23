@@ -9,81 +9,79 @@ import com.codecool.battleship.square.Square;
 import com.codecool.battleship.square.SquareStatus;
 
 public class Game {
-    private Player firstPlayer;
-    private Player secondPlayer;
+    private Player player1;
+    private Player player2;
     private final Display display = new Display();
     private final Input inputs = new Input();
     private Board player1Board;
     private Board player2Board;
-    private int turn;
-    private boolean hasWon;
-    private String name;
+    private int turn = 1;
     private final BoardFactory boardFactory = new BoardFactory();
+    private Board currentBoard;
+    private Board enemyBoard;
+    private Player currentPlayer;
+    private Player  enemyPlayer;
 
-    private int getTurn() {
-        return turn;
+    public String getPlayerName(){
+        display.provideName();
+        return inputs.userName();
     }
-
-    private void setTurn(int turn) {
-        this.turn = turn;
-    }
-
-    public Game() {
-        hasWon = false;
-        turn = 1;
-    }
-
+    
     public void newGame() {
-        display.provideName();
-        name = inputs.userName();
-        firstPlayer = new Player(name);
+        player1 = new Player(getPlayerName());
         player1Board = new Board(10);
-        placeBoard(firstPlayer, player1Board);
-        display.provideName();
-        name = inputs.userName();
-        secondPlayer = new Player(name);
+        placeBoard(player1, player1Board);
+        player2 = new Player(getPlayerName());
         player2Board = new Board(10);
-        placeBoard(secondPlayer, player2Board);
+        placeBoard(player2, player2Board);
         play();
     }
 
     private void play() {
-        while (!hasWon) {
-            player1Board.setIsHidden(false);
-            player2Board.setIsHidden(false);
-            if (turn % 2 != 0) {
-                player2Board.display();
-                playRound(firstPlayer, secondPlayer, player2Board);
-                if (!secondPlayer.isAlive()) {
-                    display.printWinner(firstPlayer.getName());
-                    hasWon = true;
-                }
-            } else {
-                player1Board.display();
-                playRound(secondPlayer, firstPlayer, player1Board);
-                if (!firstPlayer.isAlive()) {
-                    display.printWinner(secondPlayer.getName());
-                    hasWon = true;
-                }
-            }
+        while (player1.isAlive() && player2.isAlive()) {
+            playRound();
             turn++;
+        }
+        if (!player2.isAlive()) {
+            display.printWinner(player1.getName());
         }
     }
 
-    private void playRound(Player currentPlayer, Player enemyPlayer, Board board) {
-        board.setIsHidden(true);
-        board.display();
+    private void playRound() {
+        if (turn % 2 != 0) {
+            currentPlayer = player1;
+            enemyPlayer = player2;
+            currentBoard = player1Board;
+            enemyBoard = player2Board;
+        }
+        else {
+            currentPlayer = player2;
+            enemyPlayer = player1;
+            currentBoard = player2Board;
+            enemyBoard = player1Board;
+        }
+        display.clearConsole();
+        currentPlayer.displayRound();
+        enemyBoard.setIsHidden(true);
+        currentBoard.setIsHidden(false);
+        currentBoard.display();
+        enemyBoard.display();
+        fire();
+    }
+
+    public void fire(){
         display.provideShootCoo();
         int[] shoot = inputs.userCoo();
         int xCord = shoot[0];
         int yCord = shoot[1];
-        if (board.getOcean()[xCord][yCord].getSquareStatus() == SquareStatus.SHIP ||
-                board.getOcean()[xCord][yCord].getSquareStatus() == SquareStatus.EMPTY) {
-            currentPlayer.shoot(enemyPlayer, xCord, yCord, board);
+        Square targetSquare = enemyBoard.getOcean()[xCord][yCord];
+        if (targetSquare.getSquareStatus() == SquareStatus.SHIP ||
+                targetSquare.getSquareStatus() == SquareStatus.EMPTY) {
+            currentPlayer.shoot(enemyPlayer, targetSquare);
         } else {
-            playRound(currentPlayer, enemyPlayer, board);
+            display.displayShotSquare();
+            fire();
         }
-        board.display();
     }
 
     private void placeBoard(Player player, Board board) {
